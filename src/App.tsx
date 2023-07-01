@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { useContext, useEffect } from 'react';
 import './App.css';
+import { AppContext } from './Context/AppContext';
+import { Routes,Route } from 'react-router-dom';
+import Home from './component/Home';
+import Chats from './component/Chats';
+
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+
+  const {fetchChats}= useContext(AppContext);
+
+  useEffect(() => {
+    fetchChats();
+  },[])
+  return (<Routes>
+    <Route path='/' element={<Home/>} />
+    <Route path='/chats/:id' element={<Chats/>} />
+  </Routes>
   );
 }
 
